@@ -9,8 +9,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Проверка Email"),
@@ -32,29 +30,33 @@ class MainScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
 
-                
                 TextField(
-                  onChanged: (value) =>
-                      context.read<EmailBloc>().add(EmailChanged(value)),
+                  onChanged:
+                      (value) =>
+                          context.read<EmailBloc>().add(EmailChanged(value)),
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: "Email",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    errorText: state.email.isEmpty
-                        ? null
-                        : !state.isEmailValid
+                    errorText:
+                        state.email.isEmpty
+                            ? null
+                            : !state.isEmailValid
                             ? "Неверный формат email"
                             : null,
-                    suffixIcon: state.isDomainValid
-                        ? const Icon(Icons.check_circle, color: Colors.green)
-                        : const Icon(Icons.warning, color: Colors.orange),
+                    suffixIcon:
+                        state.isDomainValid
+                            ? const Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                            )
+                            : const Icon(Icons.warning, color: Colors.orange),
                   ),
                 ),
                 const SizedBox(height: 8),
 
-                
                 if (state.emailSuggestions.isNotEmpty)
                   ...state.emailSuggestions.map(
                     (s) => ListTile(
@@ -70,20 +72,21 @@ class MainScreen extends StatelessWidget {
                   ),
                 const SizedBox(height: 24),
 
-               
                 TextField(
                   obscureText: !state.isPasswordVisible,
-                  onChanged: (value) =>
-                      context.read<EmailBloc>().add(PasswordChanged(value)),
+                  onChanged:
+                      (value) =>
+                          context.read<EmailBloc>().add(PasswordChanged(value)),
                   decoration: InputDecoration(
                     labelText: "Пароль",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    errorText: state.password.isEmpty
-                        ? null
-                        : !state.isPasswordValid
-                            ? "Пароль должен содержать спецсимвол, цифру, заглавную букву и быть от 8 до 20 символов"
+                    errorText:
+                        state.password.isEmpty
+                            ? null
+                            : !state.isPasswordValid
+                            ? "Пароль должен содержать спецсимвол, цифру, \n заглавную букву и быть от 8 до 20 символов"
                             : null,
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -91,15 +94,15 @@ class MainScreen extends StatelessWidget {
                             ? Icons.visibility_off
                             : Icons.visibility,
                       ),
-                      onPressed: () => context
-                          .read<EmailBloc>()
-                          .add(TogglePasswordVisibility()),
+                      onPressed:
+                          () => context.read<EmailBloc>().add(
+                            TogglePasswordVisibility(),
+                          ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 30),
 
-              
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -108,17 +111,15 @@ class MainScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () =>
-                      context.read<EmailBloc>().add(SubmitPressed()),
+                  onPressed:
+                      () => context.read<EmailBloc>().add(SubmitPressed()),
                   child: const Text(
                     "Проверить",
-                    style: TextStyle(fontSize: 16,
-                    color: Colors.white),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 16),
 
-                
                 if (state.error != null)
                   Center(
                     child: Text(
